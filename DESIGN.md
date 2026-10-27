@@ -1,36 +1,52 @@
 # DESIGN.md — Smart Travel Packing Planner
 
-## Design direction
-**Sky Blue Minimalist** is the proposed design direction. Two static design trials were created first: `design-trials/sky-blue.html` and `design-trials/warm-editorial.html`. Review both before styling the final app.
+## Selected design direction: Option B — Warm Editorial
 
-## Why this direction
-The cool colors, clear hierarchy and generous spacing help travelers scan weather information and packing recommendations quickly.
+I compared two static design trials:
+- `design-trials/sky-blue.html` — Sky Blue Minimalist
+- `design-trials/warm-editorial.html` — Warm Editorial
 
-## Colors
-- Background: `#EDF7FC`
-- Primary text: `#163B53`
-- Primary button: `#1678A5`
-- Hero: `#D8EFFB`
-- Card: `#FFFFFF`
-- Borders: `#CBE3EF`
-- Error: `#A32929`
-- Success: `#167347`
+**Decision:** I prefer Option B because its visual presentation is more appealing. The warm neutral palette and editorial typography make the travel planning experience feel more polished and distinctive. This is the direction for the final website.
+
+## Visual style
+Warm, minimal, elegant and travel-inspired. Use generous whitespace, clear hierarchy, subtle borders and restrained decoration. The design should remain practical and easy to navigate.
+
+## Color palette
+- Page background: `#FAF4E9` (warm cream)
+- Card background: `#FFFDF8` (soft white)
+- Main text: `#403C32` (charcoal brown)
+- Primary button: `#835E48` (warm brown)
+- Accent: `#A86E4A` (terracotta brown)
+- Border: `#D9C6AF` (warm beige)
+- Error: `#A32929` (dark red)
+- Success: `#276749` (dark green)
 
 ## Typography
-Use a system sans-serif stack, no external fonts or CDNs. Body text at least 16px. Headings should be bold and readable.
+Use Georgia or another system serif for prominent editorial headings. Use a system sans-serif for inputs, buttons, checklists and smaller supporting text to keep functional content easy to read. No external fonts or CDN.
 
 ## Layout
-Maximum content width around 960px. Header and introduction, destination search, city matches, date fields, forecast, packing checklist and progress. Use white cards, rounded corners and consistent spacing. Stack columns on mobile. Controls at least 44px tall.
+Use a centered maximum width of approximately 960px. Start with a large editorial hero headline and short introduction. Below it, arrange destination search and date controls, forecast summary, packing categories and progress tracker in a logical order.
 
-## All five states
-- Empty: helpful instructions before search, or no-results explanation.
-- Loading: visible status and disabled active button.
-- Error: inline message with retry.
-- Invalid: field-specific validation without losing user input.
-- In use: weather summary, computed packing list and progress.
+Use softly bordered cream cards with modest corner rounding (about 8–12px), not oversized pill-shaped components. Provide comfortable spacing. On mobile, stack sections into a single column and keep buttons and inputs at least 44px tall.
 
-## Accessibility
-Use semantic HTML, associated labels, keyboard focus rings, live status announcements and sufficient color contrast. Do not rely only on color.
+## Components
+- Header: understated wordmark, generous spacing.
+- Form: clearly labeled city search, location choices and travel dates.
+- Primary button: solid warm brown, high-contrast white text.
+- Weather: concise daily summary and helpful travel note.
+- Packing list: organized categories with quantities and accessible checkboxes.
+- Progress: numerical completion percentage and progress bar.
 
-## Implementation note
-These are design decisions, not evidence of a working app. The student should review both trials before final styling.
+## UI states
+- Empty: show an inviting instruction and empty planner.
+- No results: show a clear city search message and allow another search.
+- Loading: display visible status while preserving entered values.
+- Error: show an accessible inline message and a retry action.
+- Invalid input: show field-specific guidance before any API request.
+- In use: display actual weather data, computed packing suggestions and live checklist progress.
+
+## Accessibility and responsiveness
+Use semantic HTML, visible keyboard focus, associated labels, aria-live status messages, sufficient contrast and responsive CSS. Do not communicate state through color alone.
+
+## Implementation rules
+This file records the student's chosen design direction after comparing two trial pages. Follow this design when styling the real application. Use only plain HTML, CSS and JavaScript, without external UI libraries, frameworks or CDN assets.
