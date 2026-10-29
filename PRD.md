@@ -37,6 +37,7 @@ The website will use the Open-Meteo Geocoding API to find the city's location.
 - Provide a text input for the destination.
 - Allow users to search for a city.
 - Display matching locations when multiple cities have the same name.
+- Require at least two non-space characters before searching, and show region information when available to help distinguish cities.
 - Allow the user to select the correct location.
 - Show an error message if the city cannot be found.
 
@@ -49,6 +50,7 @@ Users can select their departure and return dates.
 - Provide a start-date input and an end-date input.
 - The end date cannot be earlier than the start date.
 - Both dates must be within the available weather forecast period.
+- Use the destination's timezone when matching dates, and only display dates actually returned by the API.
 - Calculate the total number of travel days, including both departure and return dates.
 - Display an error message when the dates are invalid.
 
@@ -71,6 +73,7 @@ The website will retrieve weather information for the selected city and travel d
 - Show the expected temperature range.
 - Show whether rain is expected.
 - Display a short weather summary.
+- Display daily weather details and report missing forecast dates instead of guessing.
 - Clearly indicate that weather forecasts may change.
 
 ### Feature 4: Smart Packing List
@@ -81,10 +84,10 @@ The website will generate a packing list based on the weather and number of trav
 
 | Weather Condition | Packing Recommendation |
 |---|---|
-| Cold weather (below 10°C) | Warm jacket, sweaters, long pants |
-| Mild weather (10–24°C) | Light jacket, T-shirts, comfortable pants |
-| Hot weather (above 24°C) | Light clothing, shorts, sunglasses |
-| Rain expected | Umbrella, raincoat, waterproof shoes |
+| Any daily low below 10°C | Warm jacket and sweater |
+| Moderate days | Light jacket and long pants |
+| Any daily high above 24°C | Lightweight tops and shorts |
+| Rain expected (precipitation probability at least 40% or precipitation sum at least 1 mm) | Umbrella or raincoat |
 
 **Quantity Calculations:**
 
@@ -93,6 +96,8 @@ The website will generate a packing list based on the weather and number of trav
 - Tops: one per travel day.
 - Pants: one pair for every two travel days, rounded up.
 - Sleepwear: one set for trips of five days or fewer, two sets for longer trips.
+- Always include toiletries, a charger, travel documents, and medications as general reminders (not medical advice).
+- Explain that recommendations are simple heuristics, not guarantees.
 
 **Requirements:**
 
@@ -114,6 +119,7 @@ Users can track how much of their packing list is completed.
 - Save checklist progress using `localStorage`.
 - Keep saved progress when the user refreshes the page for the same trip.
 - Keep separate checklist progress for different trips.
+- Scope saved checked item IDs to the selected city and travel dates so a new trip starts with its own checklist.
 
 ## 5. API Integration
 
@@ -127,11 +133,12 @@ Example request:
 
 Fields used:
 
-- `results`
-- `name`
-- `country`
-- `latitude`
-- `longitude`
+- `results[].name`
+- `results[].admin1` when available
+- `results[].country`
+- `results[].latitude`
+- `results[].longitude`
+- `results[].id` when available to identify a selected city consistently
 
 ### API 2: Open-Meteo Weather Forecast API
 
@@ -148,6 +155,8 @@ Fields used:
 - `daily.temperature_2m_min`
 - `daily.precipitation_probability_max`
 - `daily.precipitation_sum`
+
+The forecast only covers dates supported by Open-Meteo. The API can provide up to 16 forecast days when configured with the relevant settings; the website must not claim to support dates beyond the returned forecast.
 
 The website will use JavaScript `fetch()` and `await` to retrieve the API data.
 
@@ -223,7 +232,7 @@ After the API data loads successfully:
 
 ## 7. Page Layout and Design
 
-The website will use a clean, simple, travel-inspired design.
+The website will follow **Option B — Warm Editorial** from `DESIGN.md`: warm cream backgrounds, soft white cards, brown accents, and elegant editorial headings.
 
 **Main Sections:**
 
@@ -236,13 +245,11 @@ The website will use a clean, simple, travel-inspired design.
 **Design Goals:**
 
 - Simple and easy to understand.
-- Light blue and white color scheme.
-- Clear headings and readable text.
-- Rounded cards and buttons.
+- Clear headings and readable text with modestly rounded cards and buttons.
 - Responsive layout for desktop and mobile.
 - Accessible form labels and keyboard navigation.
 
-The detailed visual decisions will be documented in `DESIGN.md` before styling the application.
+The full palette, typography, and layout guidance are documented in `DESIGN.md`.
 
 ## 8. Technical Requirements
 
@@ -272,16 +279,19 @@ https://azaz2005mzhu3.github.io/smart-travel-packing-planner/
 The project will be considered complete when:
 
 - [ ] A user can enter a city and select travel dates.
+- [ ] Short searches and missing or unselected city results are handled without an API request.
 - [ ] The website retrieves location and weather data from Open-Meteo.
 - [ ] A user can select the correct city from multiple search results.
 - [ ] The website calculates the trip length correctly.
 - [ ] The website generates packing recommendations based on weather conditions.
+- [ ] Rain recommendations appear when the precipitation probability is at least 40% or the precipitation sum is at least 1 mm.
 - [ ] The packing list displays suggested quantities.
 - [ ] Users can check and uncheck packing items.
 - [ ] The progress percentage updates correctly.
 - [ ] Packing progress is saved when the page is refreshed.
 - [ ] All five UI states work correctly.
 - [ ] API errors are handled using `try/catch` and `response.ok`.
+- [ ] Only returned forecast dates are displayed, using the destination timezone.
 - [ ] The website is usable on a mobile device.
 - [ ] The live GitHub Pages URL works.
 - [ ] The project is ready for an in-class demonstration.

@@ -67,14 +67,18 @@ The page will use JavaScript `fetch()` and `await` to retrieve the data, with `t
 
 The forecast is only available for dates supported by the API.
 
-## How to use the website (once implemented)
+## Setup and use
 
-1. Open the live website.
+This is a static HTML, CSS, and JavaScript project; no package installation or build step is required. To run it locally, serve the repository root with a local HTTP server (for example, `python -m http.server 8000` if Python is installed) and open `http://localhost:8000`. Serving the files over HTTP is preferable to opening `index.html` as a `file://` URL when checking browser API requests.
+
+1. Open the local site or the deployed site after its URL has been verified.
 2. Search for a destination city and choose the correct result.
 3. Select travel start and end dates.
 4. Click **Generate Packing List**.
 5. Review the forecast and suggested packing quantities.
 6. Check off items as you pack and track your progress.
+
+To publish on GitHub Pages, configure the repository's Pages settings to deploy the intended branch and site root, then verify the published URL before describing the site as deployed.
 
 ## Technology
 
@@ -105,7 +109,7 @@ See [DESIGN.md](DESIGN.md) for the selected colors, layout, accessibility, and U
 - [DESIGN.md](DESIGN.md) — Visual direction and styling rules.
 - [AGENTS.md](AGENTS.md) — Instructions for the AI coding agent.
 - `design-trials/` — Two HTML design experiments.
-- `index.html`, `css/styles.css`, `js/script.js` — Planned application files.
+- `index.html`, `css/styles.css`, `js/script.js` — Application files.
 
 ## Live Website
 
@@ -131,7 +135,7 @@ Commit message: `design: select Warm Editorial after comparing trial pages`
 
 This is a documented example of reviewing and changing an AI-assisted output rather than accepting it unchanged.
 
-Once coding begins, I will add another specific example if I reject, modify, or verify AI-generated JavaScript.
+As implementation continues, I will add another specific example if I reject, modify, or verify AI-generated JavaScript.
 
 ## Testing Checklist
 

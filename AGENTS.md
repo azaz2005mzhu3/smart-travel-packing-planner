@@ -13,7 +13,7 @@ The website uses the Open-Meteo API to retrieve weather information and generate
 I am still learning JavaScript, so please use simple and beginner-friendly code.
 
 - Use plain HTML, CSS, and JavaScript.
-- Do not use React, Tailwind, or other frameworks.
+- Do not use React, Tailwind, other frameworks, libraries, or CDN assets.
 - Do not add unnecessary libraries or complicated features.
 - Use clear variable names and short functions.
 - Add comments when the logic might be difficult to understand.
@@ -53,6 +53,8 @@ The website should use two API endpoints:
 **Geocoding API:** To search for a destination city and retrieve its coordinates.
 
 **Weather Forecast API:** To retrieve weather information for the selected city and travel dates.
+
+Only allow dates supported by the forecast API, and use the destination's timezone when matching forecast dates.
 
 Use JavaScript `fetch()` and `await` for API requests.
 
@@ -125,6 +127,7 @@ Users should be able to check off items after packing them.
 - Do not rewrite or delete existing project documents without asking.
 - Test each feature before moving to the next one.
 - Do not claim a feature works unless it has been tested.
+- Do not claim browser behavior is tested unless it has been tested in a browser.
 - Keep the website compatible with GitHub Pages.
 
 ### 11. Important Reminder
