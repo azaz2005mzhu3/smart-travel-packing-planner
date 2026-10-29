@@ -385,6 +385,7 @@ function summarizeWeather(daily) {
     high: daily.temperature_2m_max[index],
     low: daily.temperature_2m_min[index],
     rainChance: daily.precipitation_probability_max[index],
+    precipitation: daily.precipitation_sum[index],
   }));
 
   const highs = days.map((day) => day.high).filter((value) => value !== null);
@@ -393,14 +394,14 @@ function summarizeWeather(daily) {
   const overallMax = Math.max(...highs);
   const overallMin = Math.min(...lows);
 
-  // Average high temperature decides which packing rule (cold/mild/hot) to
-  // use, matching the ranges given in PRD.md.
-  const averageHigh = highs.reduce((sum, value) => sum + value, 0) / highs.length;
+  // The PRD defines rain using either a 40% chance or at least 1 mm.
+  const rainExpected = days.some(
+    (day) =>
+      (day.rainChance !== null && day.rainChance >= 40) ||
+      (day.precipitation !== null && day.precipitation >= 1)
+  );
 
-  // Rain is considered "expected" if any day has a 50% or higher chance.
-  const rainExpected = days.some((day) => day.rainChance !== null && day.rainChance >= 50);
-
-  return { days, overallMax, overallMin, averageHigh, rainExpected };
+  return { days, overallMax, overallMin, rainExpected };
 }
 
 // Builds the weather section's HTML content from the summary.
@@ -471,23 +472,24 @@ function buildPackingList(tripDays, weather) {
   const weatherEssentials = [];
   const personalItems = [];
 
-  // Pick the clothing style and whether a jacket is needed based on the
-  // average high temperature, following the ranges in PRD.md.
+  // Check all forecast days against the temperature rules in PRD.md.
   let topStyle;
   let bottomStyle;
   let jacketItem = null;
+  const hasColdWeather = weather.days.some((day) => day.low !== null && day.low < 10);
+  const hasHotWeather = weather.days.some((day) => day.high !== null && day.high > 24);
 
-  if (weather.averageHigh < 10) {
+  if (hasColdWeather) {
     topStyle = "Warm tops (sweaters)";
     bottomStyle = "Long pants";
     jacketItem = "Warm jacket";
-  } else if (weather.averageHigh <= 24) {
+  } else if (hasHotWeather) {
+    topStyle = "Lightweight clothing";
+    bottomStyle = "Shorts";
+  } else {
     topStyle = "T-shirts";
     bottomStyle = "Comfortable pants";
     jacketItem = "Light jacket";
-  } else {
-    topStyle = "Light, breathable tops";
-    bottomStyle = "Shorts";
   }
 
   // Quantity Calculations from PRD.md.
@@ -502,7 +504,7 @@ function buildPackingList(tripDays, weather) {
   }
 
   // Hot weather also calls for sunglasses.
-  if (weather.averageHigh > 24) {
+  if (hasHotWeather) {
     weatherEssentials.push({ name: "Sunglasses", qty: 1 });
   }
 
@@ -517,6 +519,7 @@ function buildPackingList(tripDays, weather) {
   personalItems.push({ name: "Toiletries bag", qty: 1 });
   personalItems.push({ name: "Phone charger", qty: 1 });
   personalItems.push({ name: "Travel documents (ID / passport)", qty: 1 });
+  personalItems.push({ name: "Medications (if needed)", qty: 1 });
 
   return {
     Clothing: clothing,
