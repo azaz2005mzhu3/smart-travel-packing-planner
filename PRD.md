@@ -84,10 +84,10 @@ The website will generate a packing list based on the weather and number of trav
 
 | Weather Condition | Packing Recommendation |
 |---|---|
-| Any daily low below 10°C | Warm jacket and sweater |
-| Moderate days | Light jacket and long pants |
-| Any daily high above 24°C | Lightweight tops and shorts |
-| Rain expected (precipitation probability at least 40% or precipitation sum at least 1 mm) | Umbrella or raincoat |
+| Any daily low below 10°C | Warm jacket, sweaters, and long pants |
+| Moderate weather (10–24°C) | Light jacket, T-shirts, and comfortable pants |
+| Any daily high above 24°C | Lightweight clothing, shorts, and sunglasses |
+| Rain expected (precipitation probability at least 40% or precipitation sum at least 1 mm) | Umbrella, raincoat, or waterproof shoes |
 
 **Quantity Calculations:**
 
