@@ -1,0 +1,400 @@
+/* ==========================================================================
+   Smart Travel Packing Planner
+   Design direction: Option B - Warm Editorial (see DESIGN.md)
+   ========================================================================== */
+
+:root {
+  --color-bg: #faf4e9;
+  --color-card: #fffdf8;
+  --color-text: #403c32;
+  --color-button: #835e48;
+  --color-button-hover: #6e4e3b;
+  --color-accent: #a86e4a;
+  --color-border: #d9c6af;
+  --color-error: #a32929;
+  --color-success: #276749;
+
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: normal;
+  color: var(--color-text);
+}
+
+/* Visible keyboard focus for accessibility (never rely on color alone) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Page layout ---------- */
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 1rem 0.5rem;
+}
+
+.hero h1 {
+  font-size: 2.25rem;
+  margin: 0 0 0.75rem;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.placeholder-text {
+  color: var(--color-text);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* ---------- Form ---------- */
+
+#planner-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.field-group .field {
+  flex: 1 1 200px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="date"] {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-row input {
+  flex: 1;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-button);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-button-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-card);
+  color: var(--color-button);
+  border: 1px solid var(--color-button);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- Status messages (loading / error / invalid input) ---------- */
+
+.status-message {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.status-message.loading {
+  color: var(--color-text);
+}
+
+.status-message.error {
+  color: var(--color-error);
+  font-weight: bold;
+}
+
+.status-message.success {
+  color: var(--color-success);
+  font-weight: bold;
+}
+
+.status-message:empty {
+  display: none;
+}
+
+/* ---------- City search results ---------- */
+
+.city-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.city-results li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.city-result-btn {
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  padding: 0.6rem 0.9rem;
+  background-color: var(--color-card);
+  border: none;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.city-result-btn:hover {
+  background-color: var(--color-bg);
+}
+
+.selected-city {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-success);
+  font-weight: bold;
+}
+
+.selected-city:empty {
+  display: none;
+}
+
+/* ---------- Weather Forecast section ---------- */
+
+.city-photo {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  max-height: 200px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.trip-summary {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+
+.weather-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.85;
+  margin-top: 1rem;
+}
+
+.daily-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.daily-list li {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  font-size: 0.9rem;
+}
+
+/* ---------- Packing progress tracker ---------- */
+
+.progress-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.progress-track {
+  height: 14px;
+  border-radius: 7px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-success);
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  margin: 0.5rem 0 0;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+/* ---------- Packing list categories and checklist ---------- */
+
+.packing-category {
+  margin-top: 1.25rem;
+}
+
+.packing-category h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.35rem;
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.checklist li label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.checklist li label:hover {
+  background-color: var(--color-bg);
+}
+
+.checklist input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-button);
+  flex-shrink: 0;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .search-row {
+    flex-direction: column;
+  }
+
+  .field-group {
+    flex-direction: column;
+  }
+}

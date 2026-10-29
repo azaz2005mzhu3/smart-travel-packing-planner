@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Travel Packing Planner</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="wordmark">Smart Travel Packing Planner</p>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <h1>Pack smarter for every trip</h1>
+      <p class="hero-subtitle">
+        Enter your destination and travel dates to create your packing list.
+      </p>
+    </section>
+
+    <!-- Trip Planner Form: destination search + travel dates -->
+    <section class="card" aria-labelledby="planner-heading">
+      <h2 id="planner-heading">Trip Planner</h2>
+
+      <form id="planner-form" novalidate>
+        <div class="field">
+          <label for="city-input">Destination city</label>
+          <div class="search-row">
+            <input
+              type="text"
+              id="city-input"
+              name="city"
+              placeholder="e.g. Tokyo"
+              autocomplete="off"
+            />
+            <button type="button" id="search-button" class="btn btn-secondary">
+              Search
+            </button>
+          </div>
+
+          <!-- Loading / no-results / error messages for the city search -->
+          <p id="city-search-status" class="status-message" role="status" aria-live="polite"></p>
+
+          <ul id="city-results" class="city-results" hidden></ul>
+
+          <p id="selected-city" class="selected-city" aria-live="polite"></p>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="start-date">Start date</label>
+            <input type="date" id="start-date" name="start-date" />
+          </div>
+          <div class="field">
+            <label for="end-date">End date</label>
+            <input type="date" id="end-date" name="end-date" />
+          </div>
+        </div>
+
+        <!-- Invalid input / form-level messages -->
+        <p id="form-message" class="status-message" role="alert" aria-live="assertive"></p>
+
+        <button type="submit" class="btn btn-primary">Generate Packing List</button>
+      </form>
+    </section>
+
+    <!-- Weather results section -->
+    <section class="card" id="weather-section" aria-labelledby="weather-heading">
+      <h2 id="weather-heading">Weather Forecast</h2>
+      <div id="weather-content" aria-live="polite">
+        <p class="placeholder-text">
+          Search for a destination and choose your travel dates to see the forecast here.
+        </p>
+      </div>
+    </section>
+
+    <!-- Packing recommendations section -->
+    <section class="card" id="packing-section" aria-labelledby="packing-heading">
+      <h2 id="packing-heading">Packing List</h2>
+      <div id="packing-content" aria-live="polite">
+        <p class="placeholder-text">
+          Your personalized packing list will appear here after you generate it.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built for OIM 3690 &mdash; weather data from the Open-Meteo API.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
