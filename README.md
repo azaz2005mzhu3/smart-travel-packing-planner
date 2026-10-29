@@ -113,9 +113,9 @@ See [DESIGN.md](DESIGN.md) for the selected colors, layout, accessibility, and U
 
 ## Live Website
 
-**Not deployed yet.** After publishing with GitHub Pages, verify and add the working URL here.
+**Not deployed yet.** The expected GitHub Pages address returned a 404 when checked on October 29, 2026. Update this section after publishing and verifying a working URL.
 
-Expected GitHub Pages address (not yet verified):
+Expected GitHub Pages address (currently returns 404):
 
 https://azaz2005mzhu3.github.io/smart-travel-packing-planner/
 
